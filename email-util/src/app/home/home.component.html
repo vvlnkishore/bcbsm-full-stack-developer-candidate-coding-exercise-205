@@ -1,0 +1,77 @@
+<div>
+    <mat-form-field>
+        <mat-label>Sender Email</mat-label>
+        <input matInput required [(ngModel)]="senderEmail">
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Recipient Email</mat-label>
+        <input matInput required [(ngModel)]="recipientEmail">
+    </mat-form-field>
+
+    <mat-toolbar *ngIf="currentFile" class="progress-bar">
+        <mat-progress-bar color="accent" [value]="progress"></mat-progress-bar>
+        <span class="progress">{{ progress }}%</span>
+    </mat-toolbar>
+
+    <mat-form-field>
+        <div>
+            <mat-toolbar>
+                <input matInput [value]="fileName" />
+
+                <button mat-flat-button color="primary" [disabled]="!currentFile" (click)="upload()">
+                    Upload
+                </button>
+            </mat-toolbar>
+
+            <input type="file" id="fileInput" (change)="selectFile($event)" name="fileInput" />
+        </div>
+    </mat-form-field>
+</div>
+
+<div *ngIf="message" class="message">
+    {{ message }}
+</div>
+
+<div class="row mt-3">
+    <div class="col">
+      <h1>Emails Sent</h1>
+      <div class="table-responsive">
+        <table class="table table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-center" width="150" (click)="sortSenderEmail()">Sender Email</th>
+              <th class="text-center" width="150" (click)="sortRecipientEmail()">Recipient Email</th>
+              <th class="text-center" width="100" (click)="sortFileName()">Attachment</th>
+              <th class="text-center" width="100" (click)="sortDate()">Sent Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let file of files">
+              <td class="text-center" at-sortable>{{ file.senderEmail }}</td>
+              <td class="text-center">{{ file.recipientEmail }}</td>
+              <td class="text-center">{{ file.fileName }}</td>
+              <td class="text-center">{{file.uploadDate | date:'medium'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+<!--<mat-card class="example-card">
+    <mat-card-header>
+        <mat-card-title>List of Files</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let file of fileInfos | async">
+                <a href="{{ file.fileName }}">{{ file.fileName }}</a>
+                <tr></tr>
+                <a href="{{ file.senderEmail }}">{{ file.senderEmail }}</a>
+                <tr></tr>
+                <a href="{{ file.recipientEmail }}">{{ file.recipientEmail }}</a>
+            </mat-list-item>
+        </mat-list>
+    </mat-card-content>
+</mat-card>-->
