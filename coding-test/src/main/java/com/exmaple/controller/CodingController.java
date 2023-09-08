@@ -25,9 +25,10 @@ public class CodingController {
 
 	@PostMapping("/save-file")
 	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
-	public void addFile(@RequestParam("file") MultipartFile file, @RequestParam("fromEmail") String fromEmail,
+	public String addFile(@RequestParam("file") MultipartFile file, @RequestParam("fromEmail") String fromEmail,
 			@RequestParam("toEmail") String toEmail) throws Exception {
 		service.addFile(file, fromEmail, toEmail);
+		return "Email Sent Successfully";
 	}
 
 	@GetMapping("/files")
