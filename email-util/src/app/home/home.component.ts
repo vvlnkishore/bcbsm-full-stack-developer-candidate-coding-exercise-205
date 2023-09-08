@@ -24,12 +24,11 @@ export class HomeComponent implements OnInit {
   progress = 0;
   message = '';
 
-  fileName = 'Select File';
+  fileName = 'Add Attachment';
   senderEmail = '';
   recipientEmail = '';
   fileInfos?: Observable<Array<Files>>;
   files?: Array<Files>;
-  filteredFiles?: Array<Files>;
   order = true;
 
   constructor(private uploadService: RestapiService) { }
@@ -46,7 +45,7 @@ export class HomeComponent implements OnInit {
       this.currentFile = file;
       this.fileName = this.currentFile.name;
     } else {
-      this.fileName = 'Select File';
+      this.fileName = 'Add Attachment';
     }
   }
 
@@ -66,6 +65,7 @@ export class HomeComponent implements OnInit {
             this.uploadService.getFiles().subscribe(
               fileInfos => this.files = fileInfos
            );
+           this.reloadPage();
           }
         },
         (err: any) => {
@@ -82,6 +82,10 @@ export class HomeComponent implements OnInit {
         });
     }
 
+  }
+
+  reloadPage(){
+    window.location.reload()
   }
 
   sortSenderEmail(){
@@ -127,15 +131,5 @@ export class HomeComponent implements OnInit {
     }
     this.order = !this.order;
   }
-
-  applyFilter(filterValue: string) {
-    let filterValueLower = filterValue.toLowerCase();
-    if(filterValue === '' ) {
-        this.filteredFiles=this.files;
-    } 
-    else {
-      this.filteredFiles = this.files?.filter((file) => file.fileName.includes(filterValueLower))
-    }
- }
 
 }
