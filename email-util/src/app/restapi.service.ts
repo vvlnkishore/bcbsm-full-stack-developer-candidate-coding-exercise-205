@@ -39,7 +39,7 @@ export class RestapiService {
 
     //const req = new HttpRequest('POST', this.saveDocUrl, formData, {headers: headers});
 
-    return this.http.post(this.saveDocUrl, formData, {headers: headers});
+    return this.http.post(this.saveDocUrl, formData, {headers: headers, responseType: 'text' });
   }
 
   getFiles(): Observable<Array<Files>> {

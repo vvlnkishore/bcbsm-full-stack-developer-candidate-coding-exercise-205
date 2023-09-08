@@ -1,12 +1,12 @@
 <div>
     <mat-form-field>
         <mat-label>Sender Email</mat-label>
-        <input matInput required [(ngModel)]="senderEmail">
+        <input matInput [(ngModel)]="senderEmail">
     </mat-form-field>
 
     <mat-form-field>
         <mat-label>Recipient Email</mat-label>
-        <input matInput required [(ngModel)]="recipientEmail">
+        <input matInput [(ngModel)]="recipientEmail">
     </mat-form-field>
 
     <mat-toolbar *ngIf="currentFile" class="progress-bar">

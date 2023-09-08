@@ -59,33 +59,34 @@ export class HomeComponent implements OnInit {
           if (event.type === HttpEventType.UploadProgress) {
             this.progress = Math.round(100 * event.loaded / event.total);
             this.message = "Email Sent";
-          } else if (event instanceof HttpResponse) {
-            this.message = "Email Sent";
-            //this.fileInfos = this.uploadService.getFiles();
+          } else if (event) {
+            this.message = event;
             this.uploadService.getFiles().subscribe(
               fileInfos => this.files = fileInfos
            );
-           this.reloadPage();
+           this.currentFile = undefined;
+           this.senderEmail = '';
+           this.recipientEmail = '';
+           this.fileName = 'Add Attachment';
           }
         },
         (err: any) => {
           console.log(err);
           this.progress = 0;
 
-          if (err.error && err.error.message) {
-            this.message = err.error.message;
+          if (err.error) {
+            this.message = JSON.parse(err.error).message;
           } else {
             this.message = 'Could not upload the file!';
           }
 
           this.currentFile = undefined;
+          this.senderEmail = '';
+          this.recipientEmail = '';
+          this.fileName = 'Add Attachment';
         });
     }
 
-  }
-
-  reloadPage(){
-    window.location.reload()
   }
 
   sortSenderEmail(){
