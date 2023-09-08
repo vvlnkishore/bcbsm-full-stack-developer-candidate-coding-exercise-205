@@ -1,6 +1,5 @@
 package com.exmaple.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +24,14 @@ public class CodingController {
 	private FileService service;
 
 	@PostMapping("/save-file")
-	@PreAuthorize("hasAuthority('ROLE_ADMIN', 'ROLE_USER')")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
 	public void addFile(@RequestParam("file") MultipartFile file, @RequestParam("fromEmail") String fromEmail,
-			@RequestParam("toEmail") String toEmail) throws IOException {
+			@RequestParam("toEmail") String toEmail) throws Exception {
 		service.addFile(file, fromEmail, toEmail);
 	}
 
 	@GetMapping("/files")
-	@PreAuthorize("hasAuthority('ROLE_ADMIN', 'ROLE_USER')")
+	@PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
 	public List<Files> getDocuments() {
 		return service.getFiles();
 	}
